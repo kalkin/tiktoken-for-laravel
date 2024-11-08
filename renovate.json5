@@ -1,0 +1,65 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    ":approveMajorUpdates",
+    ":automergeStableNonMajor",
+    ":automergePr",
+    ":assignee(kalkin)",
+    ":dependencyDashboard",
+    ":ignoreModulesAndTests",
+    ":semanticCommitTypeAll(deps)",
+    ":timezone(Europe/Berlin)"
+  ],
+  "automerge": true,
+  "automergeStrategy": "rebase",
+  "commitBodyTable": true,
+  "commitMessageLowerCase": "never",
+  "configMigration": true,
+  "dependencyDashboardHeader": "",
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "semanticCommits" : true,
+  "group": {
+    "commitMessageTopic": "to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}"
+  },
+  "labels": [
+    "dependencies",
+    "Renovate"
+  ],
+  "osvVulnerabilityAlerts": true,
+  "packageRules": [
+    {
+      "matchManagers": ["bundler", "cargo", "composer", "dockerfile",
+          "docker-compose", "github-actions", "pip_requirements"],
+      "commitMessageTopic": "",
+    },
+    {
+      "matchManagers": [ "composer" ],
+      "commitMessageAction": " Update",
+    },
+    {
+      "matchManagers": [ "dockerfile", "docker-compose" ],
+      "commitMessageAction": " Update",
+    },
+    {
+      "matchManagers": [ "github-actions" ],
+      "commitMessageAction": " Update",
+      "semanticCommitType": "ci",
+    },
+    {
+      "matchPackageNames": ["*"],
+      "semanticCommitType": "deps",
+    },
+    {
+      "matchDepTypes": [ "devDependencies" ],
+      "semanticCommitType": "deps-dev"
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true,
+      "automergeStrategy": "rebase"
+    }
+  ],
+  "semanticCommitScope": "{{#if isGroup}}{{groupName}}{{else}}{{depName}}{{/if}}",
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 0
+}
