@@ -1,65 +1,88 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    ":approveMajorUpdates",
-    ":automergeStableNonMajor",
-    ":automergePr",
-    ":assignee(kalkin)",
-    ":dependencyDashboard",
-    ":ignoreModulesAndTests",
-    ":semanticCommitTypeAll(deps)",
-    ":timezone(Europe/Berlin)"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    ':approveMajorUpdates',
+    ':automergeStableNonMajor',
+    ':automergePr',
+    ':assignee(kalkin)',
+    ':dependencyDashboard',
+    ':ignoreModulesAndTests',
+    ':semanticCommitTypeAll(deps)',
+    ':timezone(Europe/Berlin)',
   ],
-  "automerge": true,
-  "automergeStrategy": "rebase",
-  "commitBodyTable": true,
-  "commitMessageLowerCase": "never",
-  "configMigration": true,
-  "dependencyDashboardHeader": "",
-  "dependencyDashboardOSVVulnerabilitySummary": "all",
-  "semanticCommits" : true,
-  "group": {
-    "commitMessageTopic": "to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}"
+  automerge: true,
+  automergeStrategy: 'rebase',
+  commitBodyTable: true,
+  commitMessageLowerCase: 'never',
+  configMigration: true,
+  dependencyDashboardHeader: '',
+  dependencyDashboardOSVVulnerabilitySummary: 'all',
+  semanticCommits: 'enabled',
+  group: {
+    commitMessageTopic: 'to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}',
   },
-  "labels": [
-    "dependencies",
-    "Renovate"
+  labels: [
+    'dependencies',
+    'Renovate',
   ],
-  "osvVulnerabilityAlerts": true,
-  "packageRules": [
+  osvVulnerabilityAlerts: true,
+  packageRules: [
     {
-      "matchManagers": ["bundler", "cargo", "composer", "dockerfile",
-          "docker-compose", "github-actions", "pip_requirements"],
-      "commitMessageTopic": "",
+      matchManagers: [
+        'bundler',
+        'cargo',
+        'composer',
+        'dockerfile',
+        'docker-compose',
+        'github-actions',
+        'pip_requirements',
+      ],
+      commitMessageTopic: '',
     },
     {
-      "matchManagers": [ "composer" ],
-      "commitMessageAction": " Update",
+      matchManagers: [
+        'composer',
+      ],
+      commitMessageAction: ' Update',
     },
     {
-      "matchManagers": [ "dockerfile", "docker-compose" ],
-      "commitMessageAction": " Update",
+      matchManagers: [
+        'dockerfile',
+        'docker-compose',
+      ],
+      commitMessageAction: ' Update',
     },
     {
-      "matchManagers": [ "github-actions" ],
-      "commitMessageAction": " Update",
-      "semanticCommitType": "ci",
+      matchManagers: [
+        'github-actions',
+      ],
+      commitMessageAction: ' Update',
+      semanticCommitType: 'ci',
     },
     {
-      "matchPackageNames": ["*"],
-      "semanticCommitType": "deps",
+      matchPackageNames: [
+        '*',
+      ],
+      semanticCommitType: 'deps',
     },
     {
-      "matchDepTypes": [ "devDependencies" ],
-      "semanticCommitType": "deps-dev"
+      matchDepTypes: [
+        'devDependencies',
+      ],
+      semanticCommitType: 'deps-dev',
     },
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true,
-      "automergeStrategy": "rebase"
-    }
+      matchUpdateTypes: [
+        'minor',
+        'patch',
+        'pin',
+        'digest',
+      ],
+      automerge: true,
+      automergeStrategy: 'rebase',
+    },
   ],
-  "semanticCommitScope": "{{#if isGroup}}{{groupName}}{{else}}{{depName}}{{/if}}",
-  "prConcurrentLimit": 5,
-  "prHourlyLimit": 0
+  semanticCommitScope: '{{#if isGroup}}{{groupName}}{{else}}{{depName}}{{/if}}',
+  prConcurrentLimit: 5,
+  prHourlyLimit: 0,
 }
